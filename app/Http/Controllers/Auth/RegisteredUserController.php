@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
     */
     public function store(Request $request)
     {
-        try {
+        // try {
             $validatedData = $request->validate([
                 'lastname' => ['required', 'string', 'max:255'],
                 'firstname' => ['required', 'string', 'max:255'],
@@ -54,6 +54,8 @@ class RegisteredUserController extends Controller
 
             $imageName = time().'.'.$request->image->extension();
             $request->image->storeAs('images', $imageName);
+
+            dd($imageName);
 
             $user = User::create([
                 'lastname' => $validatedData['lastname'],
@@ -75,9 +77,9 @@ class RegisteredUserController extends Controller
             $token = $user->createToken('myapptoken')->plainTextToken;
 
             return self::apiResponse(true, "Inscription réussie", [$user, $token]);
-        } catch (ValidationException $e) {
-            return self::apiResponse(false, "Échec de l'inscription");
-        }
+        // } catch (ValidationException $e) {
+        //     return self::apiResponse(false, "Échec de l'inscription");
+        // }
     }
 
     public static function apiResponse($success, $message, $data = [], $status = 200) //: array
