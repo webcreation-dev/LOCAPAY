@@ -15,10 +15,25 @@ use Illuminate\Validation\ValidationException;
 class RegisteredUserController extends Controller
 {
     /**
-         * Register a new user.
+         * ENREGISTRER UN NOUVEL UTILISATEUR
+         *
+         * Enregistre un nouvel utilisateur en utilisant les informations fournies.
          *
          * @param \Illuminate\Http\Request $request
          * @return \Illuminate\Http\JsonResponse
+         *
+         * @bodyParam lastname string required Nom de famille de l'utilisateur.
+         * @bodyParam firstname string required Prénom de l'utilisateur.
+         * @bodyParam password string required Mot de passe de l'utilisateur.
+         * @bodyParam password_confirmation string required Confirmation du mot de passe (doit correspondre au mot de passe).
+         * @bodyParam email string required Adresse e-mail de l'utilisateur.
+         * @bodyParam phone string required Numéro de téléphone de l'utilisateur.
+         * @bodyParam npi numeric required Numéro NPI de l'utilisateur.
+         * @bodyParam image file required Image de profil de l'utilisateur (formats autorisés : jpeg, png, jpg, gif, svg ; taille maximale : 2 Mo).
+         * @bodyParam sexe numeric required Sexe de l'utilisateur (par exemple, 1 pour masculin, 2 pour féminin).
+         * @bodyParam role_id numeric required ID du rôle de l'utilisateur.
+         * @bodyParam activity_id numeric ID de l'activité de l'utilisateur (facultatif).
+         * @bodyParam city_id numeric ID de la ville de l'utilisateur (facultatif).
     */
     public function store(Request $request)
     {
