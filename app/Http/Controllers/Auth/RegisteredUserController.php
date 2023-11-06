@@ -28,16 +28,16 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'max:8'],
-            'npi' => ['required', 'numeric', 'max:9999999999'], // Utilisez une valeur appropriée pour max
-            // 'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'npi' => ['required', 'numeric', 'max:10'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'sexe' => ['required', 'numeric'],
             'role_id' => ['required', 'numeric'],
             'activity_id' => ['numeric'],
             'city_id' => ['numeric'],
         ]);
 
-        // $imageName = time().'.'.$request->image->extension();
-        // $request->image->storeAs('images', $imageName);
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->storeAs('images', $imageName);
 
         $user = User::create([
             'lastname' => $validatedData['lastname'],
@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'email' => $validatedData['email'],
             'phone' => $validatedData['phone'],
             'npi' => $validatedData['npi'],
-            // 'image' => $imageName,
+            'image' => $imageName,
             'sexe' => $validatedData['sexe'],
             'role_id' => $validatedData['role_id'],
             'activity_id' => $validatedData['activity_id'],
