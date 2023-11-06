@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone' => ['required', 'string', 'max:8'],
-                'npi' => ['required', 'numeric', 'max:10'],
+                'npi' => ['required', 'numeric'],
                 'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
                 'sexe' => ['required', 'numeric'],
                 'role_id' => ['required', 'numeric'],
