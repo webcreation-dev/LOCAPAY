@@ -37,8 +37,7 @@ class RegisteredUserController extends Controller
     */
     public function store(Request $request)
     {
-        try {
-            $validatedData = $request->validate([
+        $validatedData = $request->validate([
                 'lastname' => ['required', 'string', 'max:255'],
                 'firstname' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
@@ -50,7 +49,9 @@ class RegisteredUserController extends Controller
                 'role_id' => ['required', 'numeric'],
                 'activity_id' => ['numeric'],
                 'city_id' => ['numeric'],
-            ]);
+        ]);
+
+        try {
 
             $imageName = time().'.'.$request->image->extension();
             $request->image->storeAs('images', $imageName);
