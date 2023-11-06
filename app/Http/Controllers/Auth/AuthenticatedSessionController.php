@@ -33,6 +33,8 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * DECONNECTER UN UTILISATEUR
+     *
+     *  @header Authorization Bearer {token} Un jeton Bearer valide doit être inclus dans l'en-tête de la requête.
      */
     public function destroy()
     {
