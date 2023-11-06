@@ -21,6 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // ENREGISTREMENT D'UN UTILISATEUR
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
