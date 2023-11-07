@@ -76,8 +76,9 @@ class RegisteredUserController extends Controller
 
             Auth::login($user);
             $token = $user->createToken('myapptoken')->plainTextToken;
+            $user->token = $token;
 
-            return self::apiResponse(true, "Inscription réussie", [$user, $token]);
+            return self::apiResponse(true, "Inscription réussie", $user);
         } catch (ValidationException $e) {
             return self::apiResponse(false, "Échec de l'inscription");
         }
