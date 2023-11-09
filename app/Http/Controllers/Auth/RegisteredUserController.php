@@ -56,8 +56,6 @@ class RegisteredUserController extends Controller
             $imageName = time().'.'.$request->image->extension();
             $request->image->storeAs('images', $imageName);
 
-            // dd($imageName);
-
             $user = User::create([
                 'lastname' => $validatedData['lastname'],
                 'firstname' => $validatedData['firstname'],

@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('firstname');
             $table->string('password');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->unique();
             $table->string('npi')->unique();
             $table->string('image')->nullable();
             $table->boolean("sexe")->default(0);
+            $table->boolean("balance")->default(0);
 
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
