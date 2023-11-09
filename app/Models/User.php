@@ -26,7 +26,6 @@ class User extends Authenticatable
         'npi',
         'image',
         'sexe',
-        'balance',
         'role_id',
         'activity_id',
         'city_id',

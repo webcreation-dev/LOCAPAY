@@ -37,21 +37,22 @@ class RegisteredUserController extends Controller
     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-                'lastname' => ['required', 'string', 'max:255'],
-                'firstname' => ['required', 'string', 'max:255'],
-                'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'phone' => ['required', 'string', 'max:8'],
-                'npi' => ['required', 'numeric'],
-                'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-                'sexe' => ['required', 'numeric'],
-                'role_id' => ['required', 'numeric'],
-                'activity_id' => ['numeric'],
-                'city_id' => ['numeric'],
-        ]);
 
         try {
+
+            $validatedData = $request->validate([
+                    'lastname' => ['required', 'string', 'max:255'],
+                    'firstname' => ['required', 'string', 'max:255'],
+                    'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'phone' => ['required', 'string', 'max:8'],
+                    'npi' => ['required', 'numeric'],
+                    'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                    'sexe' => ['required', 'numeric'],
+                    'role_id' => ['required', 'numeric'],
+                    'activity_id' => ['numeric'],
+                    'city_id' => ['numeric'],
+            ]);
 
             $imageName = time().'.'.$request->image->extension();
             $request->image->storeAs('images', $imageName);
