@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * AFFICHER LES TRANSACTIONS
      */
     public function index()
     {
@@ -16,7 +16,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * AJOUTER UNE TRANSACTION
      */
     public function store(Request $request)
     {
@@ -24,7 +24,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * AFFICHER UNE TRANSACTION
      */
     public function show(Transaction $transaction)
     {
@@ -32,7 +32,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * MODIFIER UNE TRANSACTION
      */
     public function update(Request $request, Transaction $transaction)
     {
@@ -40,7 +40,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * SUPPRIMER UNE TRANSACTION
      */
     public function destroy(Transaction $transaction)
     {

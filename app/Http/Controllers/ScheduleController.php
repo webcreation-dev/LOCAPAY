@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ScheduleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * AFFICHER LES ECHEANCES
      */
     public function index()
     {
@@ -16,7 +16,7 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * AJOUTER UNE ECHEANCE
      */
     public function store(Request $request)
     {
@@ -24,7 +24,7 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * AFFICHER UNE ECHEANCE
      */
     public function show(Schedule $schedule)
     {
@@ -32,7 +32,7 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * MODIFIER UNE ECHEANCE
      */
     public function update(Request $request, Schedule $schedule)
     {
@@ -40,7 +40,7 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * SUPPRIMER UNE ECHEANCE
      */
     public function destroy(Schedule $schedule)
     {

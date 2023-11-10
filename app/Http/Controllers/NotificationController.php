@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class NotificationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * AFFICHER LES NOTIFICATIONS
      */
     public function index()
     {
@@ -16,7 +16,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * AJOUTER UNE NOTIFICATION
      */
     public function store(Request $request)
     {
@@ -24,7 +24,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * AFFICHER UNE NOTIFICATION
      */
     public function show(Notification $notification)
     {
@@ -32,7 +32,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * MODIFIER UNE NOTIFICATION
      */
     public function update(Request $request, Notification $notification)
     {
@@ -40,7 +40,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * SUPPRIMER UNE NOTIFICATION
      */
     public function destroy(Notification $notification)
     {

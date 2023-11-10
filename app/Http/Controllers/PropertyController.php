@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PropertyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * AFFICHER LES PROPRIÉTÉS
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * AJOUTER UNE PROPRIÉTÉ
      */
     public function store(Request $request)
     {
@@ -54,7 +54,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * AFFICHER UNE PROPRIÉTÉ
      */
     public function show(Property $property)
     {
@@ -62,7 +62,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * MODIFIER UNE PROPRIÉTÉ
      */
     public function update(Request $request, Property $property)
     {
@@ -70,7 +70,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * SUPPRIMER UNE PROPRIÉTÉ
      */
     public function destroy(Property $property)
     {

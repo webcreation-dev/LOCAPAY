@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 class ContractController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     *  AFFICHER LES CONTRATS
      */
     public function index()
     {
@@ -17,7 +17,7 @@ class ContractController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * AJOUTER UN CONTRAT
      */
     public function store(Request $request)
     {
@@ -28,14 +28,14 @@ class ContractController extends Controller
 
             $contract = Contract::create($data);
 
-            return self::apiResponse(true, "Contrat ajouté avec succès", $contrat);
+            return self::apiResponse(true, "Contrat ajouté avec succès", $contract);
         }catch( ValidationException ) {
             return self::apiResponse(false, "Échec de l'ajout du contrat");
         }
     }
 
     /**
-     * Display the specified resource.
+     * AFFICHER UN CONTRAT
      */
     public function show(Contract $contract)
     {
@@ -43,7 +43,7 @@ class ContractController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * MODIFIER UN CONTRAT
      */
     public function update(Request $request, Contract $contract)
     {
@@ -51,7 +51,7 @@ class ContractController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * SUPPRIMER UN CONTRAT
      */
     public function destroy(Contract $contract)
     {
