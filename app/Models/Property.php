@@ -10,7 +10,20 @@ class Property extends Model
     use HasFactory;
 
     protected $fillable = [
-
+        'id',
+        'property_last_name',
+        'property_first_name',
+        'property_location',
+        'monthly_rent',
+        'description',
+        'main_image',
+        'owner_phone',
+        'status',
+        'rating',
+        'general_rating',
+        'team_rating',
+        'user_id',
+        'city_id',
     ];
 
     public function user() {

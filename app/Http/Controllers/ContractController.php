@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contract;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ContractController extends Controller
 {
@@ -20,7 +21,17 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+            $document = time() . '.' . $request->file('document')->extension();
+            $request->file('document')->storeAs('contracts', $document);
+
+            $contract = Contract::create($data);
+
+            return self::apiResponse(true, "Contrat ajouté avec succès", $contrat);
+        }catch( ValidationException ) {
+            return self::apiResponse(false, "Échec de l'ajout du contrat");
+        }
     }
 
     /**
@@ -45,5 +56,15 @@ class ContractController extends Controller
     public function destroy(Contract $contract)
     {
         //
+    }
+
+    public static function apiResponse($success, $message, $data = [], $status = 200) //: array
+    {
+        $response = response()->json([
+            'success' => $success,
+            'message' => $message,
+            'body' => $data
+        ], $status);
+        return $response;
     }
 }
