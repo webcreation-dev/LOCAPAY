@@ -10,9 +10,11 @@ class Contract extends Model
     use HasFactory;
 
     protected $fillable = [
+        'property_id',
         'beneficiary_id',
         'landlord_id',
         'document',
+        'amount',
         'start_date',
         'type',
         'status',

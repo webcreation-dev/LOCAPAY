@@ -18,6 +18,14 @@ class ContractController extends Controller
 
     /**
      * AJOUTER UN CONTRAT
+     *
+     * @bodyParam property_id numeric required ID de la propriété liée au contrat.
+     * @bodyParam beneficiary_id numeric required ID du locataire lié au contrat.
+     * @bodyParam landlord_id numeric required ID du propriétaire lié au contrat.
+     * @bodyParam amount numeric required Montant de l'avance.
+     * @bodyParam start_date date required Date de début du contrat (au format Y-m-d).
+     * @bodyParam type enum required Type de contrat (Service ou Location).
+     * @bodyParam document file required Document du contrat (formats autorisés : pdf, doc, docx ; taille maximale : 5 Mo).
      */
     public function store(Request $request)
     {
