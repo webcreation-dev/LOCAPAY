@@ -75,6 +75,7 @@ class RegisteredUserController extends Controller
 
             Auth::login($user);
             $token = $user->createToken('myapptoken')->plainTextToken;
+            $user = User::where('phone', $validatedData['phone'])->first();
             $user->token = $token;
 
             return self::apiResponse(true, "Inscription réussie", $user);
