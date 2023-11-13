@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContractController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TransactionController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\MtnMobileMoneyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('contracts', ContractController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('schedules', ScheduleController::class);
-    Route::post('/initiate-payment/{amount}/{currency}/{payerMobileNumber}', [MtnMobileMoneyController::class, 'initiatePayment']);
 });
+Route::get('/initiate-payment/{amount}/{currency}/{payerMobileNumber}', [MtnMobileMoneyController::class, 'initiatePayment']);
+
+
