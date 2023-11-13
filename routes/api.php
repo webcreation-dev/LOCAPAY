@@ -31,4 +31,5 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('contracts', ContractController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('schedules', ScheduleController::class);
+    Route::post('/initiate-payment/{amount}/{currency}/{payerMobileNumber}', [MtnMobileMoneyController::class, 'initiatePayment']);
 });
