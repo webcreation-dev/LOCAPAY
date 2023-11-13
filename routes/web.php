@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MtnMobileMoneyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
-
+Route::get('/initiate-payment/{amount}/{currency}/{payerMobileNumber}', [MtnMobileMoneyController::class, 'initiatePayment']);
