@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Bmatovu\MtnMomo\Products\Collection;
-use GuzzleHttp\Psr7\Request;
 
 class MtnMobileMoneyController extends Controller
 {
@@ -16,20 +15,16 @@ class MtnMobileMoneyController extends Controller
     }
 
     /**
-     * INITIER UN PAIEMENT
+     * Initiates a payment.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param mixed $amount The amount of the payment.
+     * @param mixed $payerMobileNumber The mobile number of the payer.
+     * @param mixed $reason The reason for the payment.
      *
-     * @bodyParam amount numeric required Montant de la transaction.
-     * @bodyParam payerMobileNumber string required Téléphone mobile de l'utilisateur (ex. : "22966877345").
-     * @bodyParam reason string required Motif de la transaction.
-    */
-    public function initiateTransaction(Request $request)
+     * @return JsonResponse The JSON response containing the reference ID.
+     */
+    public function initiatePayment($amount, $payerMobileNumber, $reason)
     {
-        $amount = $request->amount;
-        $payerMobileNumber = $request->payerMobileNumber;
-        $reason = $request->reason;
         // Request the payment from the payment collection service
         $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
         $response = $this->collection->getTransactionStatus($transactionId);
@@ -45,6 +40,28 @@ class MtnMobileMoneyController extends Controller
         ], $status);
         return $response;
     }
+
+
+    // /**
+    //  * INITIER UN PAIEMENT
+    //  *
+    //  * @param \Illuminate\Http\Request $request
+    //  * @return \Illuminate\Http\JsonResponse
+    //  *
+    //  * @bodyParam amount numeric required Montant de la transaction.
+    //  * @bodyParam payerMobileNumber string required Téléphone mobile de l'utilisateur (ex. : "22966877345").
+    //  * @bodyParam reason string required Motif de la transaction.
+    // */
+    // public function initiateTransaction(Request $request)
+    // {
+    //     $amount = $request->amount;
+    //     $payerMobileNumber = $request->payerMobileNumber;
+    //     $reason = $request->reason;
+    //     // Request the payment from the payment collection service
+    //     $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+    //     $response = $this->collection->getTransactionStatus($transactionId);
+    //     return self::apiResponse(true, 'Transaction effectué', $response );
+    // }
 
     /**
      * Retrieves the payment status for a given reference ID.

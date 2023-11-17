@@ -20,8 +20,6 @@ use App\Http\Controllers\MtnMobileMoneyController;
 |
 */
 
-Route::post('/initiate-payment', [MtnMobileMoneyController::class, 'initiateTransaction']);
-
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -35,4 +33,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('transactions', TransactionController::class);
     Route::resource('schedules', ScheduleController::class);
 });
+Route::get('/initiate-payment/{amount}/{payerMobileNumber}/{reason}', [MtnMobileMoneyController::class, 'initiatePayment']);
+Route::get('/get-payment-status/{referenceId}', [MtnMobileMoneyController::class, 'getPaymentStatus']);
 
