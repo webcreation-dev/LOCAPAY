@@ -16,16 +16,15 @@ class MtnMobileMoneyController extends Controller
     }
 
     /**
-     * Initier un paiement
-     * 
+     * INITIER UN PAIEMENT
+     *
      * @param \Illuminate\Http\Request $request
-     *  @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      *
      * @bodyParam amount numeric required Montant de la transaction.
-     * @bodyParam payerMobileNumber  numeric required Téléphone mobile de l'utilisateur : 22966877345.
+     * @bodyParam payerMobileNumber string required Téléphone mobile de l'utilisateur (ex. : "22966877345").
      * @bodyParam reason string required Motif de la transaction.
-     *
-     */
+    */
     public function initiateTransaction(Request $request)
     {
         $amount = $request->amount;
