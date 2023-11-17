@@ -2,37 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\MtnMobileMoneyService;
+use Bmatovu\MtnMomo\Products\Collection;
 
 class MtnMobileMoneyController extends Controller
 {
     protected $mtnMobileMoneyService;
+    protected $collection;
 
-    /**
-     * Creates a new instance of the class.
-     *
-     * @param MtnMobileMoneyService $mtnMobileMoneyService The MtnMobileMoneyService object.
-     */
-    public function __construct(MtnMobileMoneyService $mtnMobileMoneyService)
+    public function __construct()
     {
-        $this->mtnMobileMoneyService = $mtnMobileMoneyService;
+        $this->collection = new Collection();
     }
 
-    /**
-     * Initiates a payment.
-     *
-     * @param mixed $amount the amount of the payment
-     * @param string $currency the currency of the payment
-     * @param string $payerMobileNumber the mobile number of the payer
-     * @return mixed the payment response
-     */
-    public function initiatePayment($amount, $currency, $payerMobileNumber)
+    public function initiatePayment($amount, $payerMobileNumber, $currency)
     {
         // Step 1: Create API User, Create API Key, and Request to Pay
-        $paymentResponse = $this->mtnMobileMoneyService->requestToPay($amount, $currency, $payerMobileNumber);
+        $referenceId = $this->collection->requestToPay('testPayment', $payerMobileNumber, $amount);
 
         // Handle the payment response as needed
-        return response()->json($paymentResponse);
+        return response()->json(['reference_id' => $referenceId]);
+    }
+
+    public function getPaymentStatus($referenceId)
+    {
+        $status = $this->collection->getTransactionStatus($referenceId);
+        return response()->json(['status' => $status]);
     }
 }

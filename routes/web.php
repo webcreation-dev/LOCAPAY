@@ -17,4 +17,4 @@ use App\Http\Controllers\MtnMobileMoneyController;
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
-Route::get('/initiate-payment/{amount}/{currency}/{payerMobileNumber}', [MtnMobileMoneyController::class, 'initiatePayment']);
+

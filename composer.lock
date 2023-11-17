@@ -4,8 +4,156 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14871ea92d1542979fff75d7bfce25c9",
+    "content-hash": "b3b2fc5b74bad2fccb3eb7e4a74b40e0",
     "packages": [
+        {
+            "name": "bmatovu/laravel-mtn-momo",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtvbrianking/laravel-mtn-momo.git",
+                "reference": "f6e262b1ecb210667fb7862abf1569464e1d9c1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtvbrianking/laravel-mtn-momo/zipball/f6e262b1ecb210667fb7862abf1569464e1d9c1a",
+                "reference": "f6e262b1ecb210667fb7862abf1569464e1d9c1a",
+                "shasum": ""
+            },
+            "require": {
+                "bmatovu/oauth-negotiator": "^2.0",
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.5",
+                "illuminate/console": "^8.0|^9.0|^10.0",
+                "illuminate/container": "^8.0|^9.0|^10.0",
+                "illuminate/contracts": "^8.0|^9.0|^10.0",
+                "illuminate/database": "^8.0|^9.0|^10.0",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "nesbot/carbon": "^2.62.1",
+                "php": "^7.3|^8.0",
+                "ramsey/uuid": "^4.7"
+            },
+            "require-dev": {
+                "code-lts/doctum": "^5.5",
+                "friendsofphp/php-cs-fixer": "^3.14",
+                "laravel/framework": "^10.0",
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^8.0",
+                "phpunit/phpunit": "^9.3|^10.0"
+            },
+            "suggest": {
+                "monolog/monolog": "For more comprehensive logging."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Bmatovu\\MtnMomo\\MtnMomoServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "Bmatovu\\MtnMomo\\": "src/",
+                    "Bmatovu\\MtnMomo\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Matovu",
+                    "email": "mtvbrianking@gmail.com",
+                    "homepage": "https://bmatovu.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel MTN MOMO integration.",
+            "homepage": "https://github.com/mtvbrianking/laravel-mtn-momo",
+            "keywords": [
+                "api",
+                "laravel",
+                "momo",
+                "mtn",
+                "package"
+            ],
+            "support": {
+                "issues": "https://github.com/mtvbrianking/laravel-mtn-momo/issues",
+                "source": "https://github.com/mtvbrianking/laravel-mtn-momo/tree/v4.3.0"
+            },
+            "time": "2023-02-11T16:03:41+00:00"
+        },
+        {
+            "name": "bmatovu/oauth-negotiator",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtvbrianking/oauth-negotiator.git",
+                "reference": "54d2987312cfb9d86ccc1d0b97ac3c85b44bfebd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtvbrianking/oauth-negotiator/zipball/54d2987312cfb9d86ccc1d0b97ac3c85b44bfebd",
+                "reference": "54d2987312cfb9d86ccc1d0b97ac3c85b44bfebd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.0",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "mockery/mockery": "^1.4",
+                "phpunit/phpunit": "^8.5.5"
+            },
+            "suggest": {
+                "monolog/monolog": "For comprehensive logging."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "Bmatovu\\OAuthNegotiator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Matovu",
+                    "email": "mtvbrianking@gmail.com",
+                    "homepage": "http://bmatovu.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OAuth2 client token manager.",
+            "homepage": "https://github.com/mtvbrianking/oauth-negotiator",
+            "keywords": [
+                "Guzzle",
+                "middleware",
+                "oauth",
+                "oauth2",
+                "package"
+            ],
+            "support": {
+                "issues": "https://github.com/mtvbrianking/oauth-negotiator/issues",
+                "source": "https://github.com/mtvbrianking/oauth-negotiator/tree/v2.1.0"
+            },
+            "time": "2022-03-26T13:30:16+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -5630,6 +5778,90 @@
     ],
     "packages-dev": [
         {
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v3.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "bfd0131c146973cab164e50f5cdd8a67cc60cab1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/bfd0131c146973cab164e50f5cdd8a67cc60cab1",
+                "reference": "bfd0131c146973cab164e50f5cdd8a67cc60cab1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^9|^10",
+                "illuminate/session": "^9|^10",
+                "illuminate/support": "^9|^10",
+                "maximebf/debugbar": "^1.18.2",
+                "php": "^8.0",
+                "symfony/finder": "^6"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench-dusk": "^5|^6|^7|^8",
+                "phpunit/phpunit": "^8.5.30|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Debugbar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Debugbar": "Barryvdh\\Debugbar\\Facades\\Debugbar"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
+                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.9.2"
+            },
+            "funding": [
+                {
+                    "url": "https://fruitcake.nl",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-25T18:43:57+00:00"
+        },
+        {
             "name": "erusev/parsedown",
             "version": "1.7.4",
             "source": {
@@ -6156,6 +6388,72 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2023-10-18T13:57:15+00:00"
+        },
+        {
+            "name": "maximebf/debugbar",
+            "version": "v1.19.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximebf/php-debugbar.git",
+                "reference": "03dd40a1826f4d585ef93ef83afa2a9874a00523"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/03dd40a1826f4d585ef93ef83afa2a9874a00523",
+                "reference": "03dd40a1826f4d585ef93ef83afa2a9874a00523",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8",
+                "psr/log": "^1|^2|^3",
+                "symfony/var-dumper": "^4|^5|^6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=7.5.20 <10.0",
+                "twig/twig": "^1.38|^2.7|^3.0"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "The best way to manage assets",
+                "monolog/monolog": "Log using Monolog",
+                "predis/predis": "Redis storage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.18-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DebugBar\\": "src/DebugBar/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Debug bar in the browser for php application",
+            "homepage": "https://github.com/maximebf/php-debugbar",
+            "keywords": [
+                "debug",
+                "debugbar"
+            ],
+            "support": {
+                "issues": "https://github.com/maximebf/php-debugbar/issues",
+                "source": "https://github.com/maximebf/php-debugbar/tree/v1.19.1"
+            },
+            "time": "2023-10-12T08:10:52+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -8580,5 +8878,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
