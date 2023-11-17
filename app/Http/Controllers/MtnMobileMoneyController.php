@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Bmatovu\MtnMomo\Products\Collection;
+use GuzzleHttp\Psr7\Request;
 
 class MtnMobileMoneyController extends Controller
 {
@@ -15,21 +16,35 @@ class MtnMobileMoneyController extends Controller
     }
 
     /**
-     * Initiates a payment.
+     * Initier un paiement
+     * 
+     * @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\JsonResponse
      *
-     * @param mixed $amount The amount of the payment.
-     * @param mixed $payerMobileNumber The mobile number of the payer.
-     * @param mixed $reason The reason for the payment.
+     * @bodyParam amount numeric required Montant de la transaction.
+     * @bodyParam payerMobileNumber  numeric required Téléphone mobile de l'utilisateur : 22966877345.
+     * @bodyParam reason string required Motif de la transaction.
      *
-     * @return JsonResponse The JSON response containing the reference ID.
      */
-    public function initiatePayment($amount, $payerMobileNumber, $reason)
+    public function initiateTransaction(Request $request)
     {
+        $amount = $request->amount;
+        $payerMobileNumber = $request->payerMobileNumber;
+        $reason = $request->reason;
         // Request the payment from the payment collection service
-        $referenceId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+        $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+        $response = $this->collection->getTransactionStatus($transactionId);
+        return self::apiResponse(true, 'Transaction effectué', $response );
+    }
 
-        // Return a JSON response with the reference ID
-        return response()->json(['reference_id' => $referenceId]);
+    public static function apiResponse($success, $message, $data = [], $status = 200) //: array
+    {
+        $response = response()->json([
+            'success' => $success,
+            'message' => $message,
+            'body' => $data
+        ], $status);
+        return $response;
     }
 
     /**
