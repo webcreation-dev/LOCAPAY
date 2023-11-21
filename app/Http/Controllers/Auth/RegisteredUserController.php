@@ -47,15 +47,19 @@ class RegisteredUserController extends Controller
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'phone' => ['required', 'string', 'max:8'],
                     'npi' => ['required', 'numeric'],
-                    'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                    'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
                     'sexe' => ['required', 'numeric'],
                     'role_id' => ['required', 'numeric'],
                     'activity_id' => ['numeric'],
                     'city_id' => ['numeric'],
             ]);
 
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->storeAs('images', $imageName);
+            $imageName = null;
+
+            if ($request->hasFile('image')) {
+                $imageName = time().'.'.$request->image->extension();
+                $request->image->storeAs('images', $imageName);
+            }
 
             $user = User::create([
                 'lastname' => $validatedData['lastname'],
