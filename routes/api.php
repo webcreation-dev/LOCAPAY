@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContractController;
@@ -36,6 +38,13 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
-Route::get('/initiate-payment/{amount}/{payerMobileNumber}/{reason}', [MtnMobileMoneyController::class, 'initiatePayment']);
-Route::get('/get-payment-status/{referenceId}', [MtnMobileMoneyController::class, 'getPaymentStatus']);
+
+    Route::resource('cities', CityController::class);
+    Route::resource('activities', ActivityController::class);
+
+// Route::get('/initiate-payment/{amount}/{payerMobileNumber}/{reason}', [MtnMobileMoneyController::class, 'initiatePayment']);
+
+Route::get('/initiate-transaction/{amount}/{payerMobileNumber}/{reason}', [MtnMobileMoneyController::class, 'initiateTransaction']);
+
+// Route::get('/get-payment-status/{referenceId}', [MtnMobileMoneyController::class, 'getPaymentStatus']);
 

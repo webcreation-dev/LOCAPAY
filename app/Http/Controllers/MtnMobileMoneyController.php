@@ -42,26 +42,20 @@ class MtnMobileMoneyController extends Controller
     }
 
 
-    // /**
-    //  * INITIER UN PAIEMENT
-    //  *
-    //  * @param \Illuminate\Http\Request $request
-    //  * @return \Illuminate\Http\JsonResponse
-    //  *
-    //  * @bodyParam amount numeric required Montant de la transaction.
-    //  * @bodyParam payerMobileNumber string required Téléphone mobile de l'utilisateur (ex. : "22966877345").
-    //  * @bodyParam reason string required Motif de la transaction.
-    // */
-    // public function initiateTransaction(Request $request)
-    // {
-    //     $amount = $request->amount;
-    //     $payerMobileNumber = $request->payerMobileNumber;
-    //     $reason = $request->reason;
-    //     // Request the payment from the payment collection service
-    //     $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
-    //     $response = $this->collection->getTransactionStatus($transactionId);
-    //     return self::apiResponse(true, 'Transaction effectué', $response );
-    // }
+    /**
+     * INITIER UN PAIEMENT
+     *
+     * @urlParam amount Montant de la transaction.
+     * @urlParam payerMobileNumber Le numéro de téléphone mobile de l'utilisateur (ex. : "22966877345").
+     * @urlParam reason La raison du paiement.
+     *
+    */
+    public function initiateTransaction($amount, $payerMobileNumber, $reason)
+    {
+        $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+        $response = $this->collection->getTransactionStatus($transactionId);
+        return self::apiResponse(true, 'Transaction effectué', $response );
+    }
 
     /**
      * Retrieves the payment status for a given reference ID.
