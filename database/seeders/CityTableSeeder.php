@@ -14,7 +14,44 @@ class CityTableSeeder extends Seeder
     public function run(): void
     {
         City::create([
-            'name' => 'Calavi',
+            'name' => 'Akpakpa',
         ]);
+
+        City::create([
+            'name' => 'Cadjehoun',
+        ]);
+
+        City::create([
+            'name' => 'Gbegamey',
+        ]);
+
+        City::create([
+            'name' => 'Houeyiho',
+        ]);
+
+        City::create([
+            'name' => 'Fidjrossè',
+        ]);
+
+        City::create([
+            'name' => 'Agla',
+        ]);
+
+        City::create([
+            'name' => 'Godomey',
+        ]);
+
+        City::create([
+            'name' => 'Tanpkè',
+        ]);
+
+        City::create([
+            'name' => 'Houeto',
+        ]);
+
+        City::create([
+            'name' => 'Aitchedji',
+        ]);
+
     }
 }

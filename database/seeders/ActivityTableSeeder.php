@@ -14,8 +14,25 @@ class ActivityTableSeeder extends Seeder
      */
     public function run(): void
     {
+
         Activity::create([
-            'name' => 'Plombier',
+            'name' => 'Maçon',
+        ]);
+
+        Activity::create([
+            'name' => 'Soudeur',
+        ]);
+
+        Activity::create([
+            'name' => 'Électricien',
+        ]);
+
+        Activity::create([
+            'name' => 'Entretien',
+        ]);
+
+        Activity::create([
+            'name' => 'Lavandière',
         ]);
     }
 }

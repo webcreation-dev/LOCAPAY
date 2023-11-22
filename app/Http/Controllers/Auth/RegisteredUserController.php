@@ -71,8 +71,8 @@ class RegisteredUserController extends Controller
                 'image' => $imageName,
                 'sexe' => $validatedData['sexe'],
                 'role_id' => $validatedData['role_id'],
-                'activity_id' => $validatedData['activity_id'],
-                'city_id' => $validatedData['city_id'],
+                'activity_id' => $validatedData['activity_id'] ?? null,
+                'city_id' => $validatedData['city_id'] ?? null,
             ]);
 
             event(new Registered($user));
