@@ -43,7 +43,7 @@ class NotificationController extends Controller
      */
     public function show(Notification $notification)
     {
-        //
+        return self::apiResponse(true, "Notification trouvée", $notification);
     }
 
     /**

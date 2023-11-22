@@ -53,7 +53,7 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        //
+        return self::apiResponse(true, "Contrat trouvé", $contract);
     }
 
     /**
