@@ -13,7 +13,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        //
+        $contracts = Contract::all();
+        return self::apiResponse(true, "Liste de tous les contrats", $contracts);
     }
 
     /**
@@ -26,6 +27,9 @@ class ContractController extends Controller
      * @bodyParam start_date date required Date de début du contrat (au format Y-m-d).
      * @bodyParam type enum required Type de contrat (Service ou Location).
      * @bodyParam document file required Document du contrat (formats autorisés : pdf, doc, docx ; taille maximale : 5 Mo).
+     * @bodyParam observations string required Observations
+     * @bodyParam status enum required Statut du contrat (Pending, Active, Terminated).
+
      */
     public function store(Request $request)
     {
@@ -44,6 +48,8 @@ class ContractController extends Controller
 
     /**
      * AFFICHER UN CONTRAT
+     *
+     * @urlParam contract Paramètre d'URL obligatoire. ID du contrat à afficher.
      */
     public function show(Contract $contract)
     {
@@ -53,18 +59,18 @@ class ContractController extends Controller
     /**
      * MODIFIER UN CONTRAT
      */
-    public function update(Request $request, Contract $contract)
-    {
-        //
-    }
+    // public function update(Request $request, Contract $contract)
+    // {
+    //     //
+    // }
 
     /**
      * SUPPRIMER UN CONTRAT
      */
-    public function destroy(Contract $contract)
-    {
-        //
-    }
+    // public function destroy(Contract $contract)
+    // {
+    //     //
+    // }
 
     public static function apiResponse($success, $message, $data = [], $status = 200) //: array
     {

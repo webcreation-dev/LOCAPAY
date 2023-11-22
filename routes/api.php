@@ -30,8 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('properties', PropertyController::class);
     Route::resource('notifications', NotificationController::class);
     Route::resource('contracts', ContractController::class);
-    Route::resource('transactions', TransactionController::class);
-    Route::resource('schedules', ScheduleController::class);
+    // Route::resource('transactions', TransactionController::class);
+    // Route::resource('schedules', ScheduleController::class);
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
