@@ -50,4 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function scopePhone($query, $phone)
+    {
+        return $query->where('phone', $phone);
+    }
 }

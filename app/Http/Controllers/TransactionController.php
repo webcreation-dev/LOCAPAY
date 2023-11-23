@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -46,6 +47,37 @@ class TransactionController extends Controller
         } catch (ValidationException $e) {
             $errors = $e->errors();
             return self::apiResponse(false, "Échec de l'ajout de la transaction", $errors);
+        }
+    }
+
+    public function actionTransaction(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'user_id' => ['required', 'numeric'],
+                'amount' => ['required', 'numeric'],
+                'type' => ['required', 'in:Recharge,Retrait'],
+                'transaction_id' => ['required', 'string'],
+                'reason' => ['required', 'string'],
+            ]);
+
+            $user = User::find($request->user_id);
+
+            if($request->type == "Recharge") {
+                $user->balance = $user->balance + $request->amount;
+                $user->save();
+            }else {
+                $user->balance = $user->balance - $request->amount;
+                $user->save();
+            }
+
+            $transaction = Transaction::create($data);
+            $transaction->balance = $user->balance;
+            return self::apiResponse(true, "Transaction ajoutée avec succès", $transaction);
+
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            return self::apiResponse(false, "Échec de la transaction", $errors);
         }
     }
 

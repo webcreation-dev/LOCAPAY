@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->integer('amount');
-            $table->enum('type', ['Recharge', 'Payment']);
+            $table->enum('type', ['Recharge', 'Payment', 'Retrait']);
             $table->string('reason');
             $table->string('transaction_id');
 

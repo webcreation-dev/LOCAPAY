@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Bmatovu\MtnMomo\Products\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class MtnMobileMoneyController extends Controller
 {
@@ -43,18 +46,41 @@ class MtnMobileMoneyController extends Controller
 
 
     /**
-     * INITIER UN PAIEMENT
+     * DEPOT ET RETRAIT
      *
      * @urlParam amount Montant de la transaction.
-     * @urlParam payerMobileNumber Le numéro de téléphone mobile de l'utilisateur (ex. : "22966877345").
      * @urlParam reason La raison du paiement.
+     * @urlParam type Le type de transaction (Recharge ou Retrait).
      *
     */
-    public function initiateTransaction($amount, $payerMobileNumber, $reason)
+    public function initiateTransaction($amount, $reason, $type)
     {
-        $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
-        $response = $this->collection->getTransactionStatus($transactionId);
-        return self::apiResponse(true, 'Transaction effectué', $response);
+        $payerMobileNumber = Auth::user()->phone;
+        try {
+            $isUnique = User::where('phone', $payerMobileNumber)->doesntExist();
+
+            if (!$isUnique) {
+                if($type == "Recharge") {
+                    $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+                    $response = $this->collection->getTransactionStatus($transactionId);
+                    return redirect()->route('action-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'amount' => $amount, 'user_id' => Auth::user()->id, 'type' => $type]);
+                }else {
+                    $solde = User::where('phone', $payerMobileNumber)->first()->balance;
+                    if($solde < $amount) {
+                        return self::apiResponse(false, "Le solde est insuffisant");
+                    }else {
+                        $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+                        $response = $this->collection->getTransactionStatus($transactionId);
+                        return redirect()->route('action-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'amount' => $amount, 'user_id' => Auth::user()->id, 'type' => $type]);
+                    }
+                }
+
+            }else {
+                return self::apiResponse(false, "Le numéro n'a pas été trouvé");
+            }
+        } catch (ValidationException) {
+            return self::apiResponse(false, "Échec de la transaction");
+        }
     }
 
     /**
