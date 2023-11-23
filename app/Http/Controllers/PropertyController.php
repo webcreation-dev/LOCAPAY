@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use App\Models\PropertyGallery;
-use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -21,8 +21,8 @@ class PropertyController extends Controller
     /**
         * AJOUTER UNE PROPRIÉTÉ
         *
-        * @bodyParam property_lastname string required Nom du propriétaire.
-        * @bodyParam property_firstname string required Prénom du propriétaire.
+        * @bodyParam property_last_name string required Nom du propriétaire.
+        * @bodyParam property_first_name string required Prénom du propriétaire.
         * @bodyParam property_location string required Emplacement de la propriété.
         * @bodyParam monthly_rent numeric required Loyer mensuel de la propriété.
         * @bodyParam description string required Description de la propriété.
@@ -43,23 +43,37 @@ class PropertyController extends Controller
     {
         try {
 
-            $data = $request->all();
 
-            $galleries = $data['galleries'];
+            $data = $request->validate([
+                'property_last_name' => ['required', 'string', 'max:255'],
+                'property_first_name' => ['required', 'string', 'max:255'],
+                'property_location' => ['required', 'string'],
+                'monthly_rent' => ['required', 'numeric'],
+                'owner_phone' => ['required', 'numeric'],
+                'description' => ['required', 'string'],
+                'main_image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                'status' => ['numeric'],
+                'rating' => ['numeric'],
+                'general_rating' => ['numeric'],
+                'team_rating' => ['numeric'],
+                'user_id' => ['required', 'numeric'],
+                'city_id' => ['required', 'numeric'],
+            ]);
+
+            $galleries = $request['galleries'];
             $main_features = $request['main_features'];
             $secondary_features = $request['secondary_features'];
 
-            $imageName = time().'.'. $data['main_image']->extension();
-            $request->image->storeAs('images', $imageName);
+            $imageName = time().'.'. $request->main_image->extension();
+            $request->main_image->storeAs('properties', $imageName);
 
             $property = Property::create($data);
 
             foreach ($galleries as $image) {
-
                 $imageName = time().'.'. $image->extension();
-                $request->image->storeAs('images', $imageName);
+                $image->storeAs('properties', $imageName);
 
-                $propertyImage = new PropertyGallery(['image' => $image]);
+                $propertyImage = new PropertyGallery(['image' => $imageName]);
                 $property->gallery()->save($propertyImage);
             }
 
@@ -67,8 +81,10 @@ class PropertyController extends Controller
             $property->secondaryFeatures()->attach($secondary_features);
 
             return self::apiResponse(true, "Location ajouté avec succès", $property);
-        }catch( ValidationException ) {
-            return self::apiResponse(false, "Échec de l'ajout de la propriété");
+        }catch( ValidationException $e) {
+            $errors = $e->errors();
+
+            return self::apiResponse(false, "Échec de l'ajout de la propriété", $errors);
         }
     }
 

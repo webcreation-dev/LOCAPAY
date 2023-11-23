@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             ActivityTableSeeder::class,
             CityTableSeeder::class,
             RoleTableSeeder::class,
+            MainFeaturesTableSeeder::class,
+            SecondaryFeaturesTableSeeder::class,
         ]);
 
     }

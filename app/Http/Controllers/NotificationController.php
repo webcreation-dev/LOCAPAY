@@ -9,12 +9,13 @@ use Illuminate\Validation\ValidationException;
 class NotificationController extends Controller
 {
     /**
-     * AFFICHER LES NOTIFICATIONS
+     * AFFICHER LES NOTIFICATIONS D'UN UTILISATEUR
      */
-    public function index()
+    public function index(Request $request)
     {
-        $notifications = Notification::all();
-        return self::apiResponse(true, "Liste de toutes les notifications", $notifications);
+        $user_id = $request->user_id;
+        $notifications = Notification::where('user_id', $user_id)->get();
+        return self::apiResponse(true, "Liste des notifications de l'utilisateur", $notifications);
     }
 
 
