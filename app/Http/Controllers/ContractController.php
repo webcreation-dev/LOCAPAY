@@ -45,8 +45,10 @@ class ContractController extends Controller
                 'observations' => ['required', 'string'],
             ]);
 
-            $document = time() . '.' . $request->file('document')->extension();
-            $request->file('document')->storeAs('contracts', $document);
+            $document = $request->file('document');
+            $imageName = time() . '.' . $document->getClientOriginalExtension();
+            $document->storeAs('contracts', $imageName, 'public');
+
             $contract = Contract::create($data);
             return self::apiResponse(true, "Contrat ajouté avec succès", $contract);
         }catch( ValidationException $e) {

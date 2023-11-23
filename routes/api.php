@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,5 +51,9 @@ Route::resource('cities', CityController::class);
 Route::resource('activities', ActivityController::class);
 Route::resource('main_features', MainFeatureController::class);
 Route::resource('secondary_feature', SecondaryFeatureController::class);
+
+// Route::get('/get_image/{imageName}', [RegisteredUserController::class, 'getImage']);
+// Route::post('/upload_image', [RegisteredUserController::class, 'uploadImage']);
+
 
 

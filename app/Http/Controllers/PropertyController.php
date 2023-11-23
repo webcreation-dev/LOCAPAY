@@ -14,7 +14,19 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
+        $properties = Property::with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
+
+        $properties = $properties->map(function ($property) {
+            $property->main_image_url = url('storage/properties/' . $property->main_image);
+
+
+            $property->gallery->each(function ($image) {
+                $image->image_url = url('storage/properties/' . $image->image);
+            });
+
+            return $property;
+        });
+
         return self::apiResponse(true, "Liste de tous les propriétés", $properties);
     }
 
@@ -64,16 +76,20 @@ class PropertyController extends Controller
             $main_features = $request['main_features'];
             $secondary_features = $request['secondary_features'];
 
-            $imageName = time().'.'. $request->main_image->extension();
-            $request->main_image->storeAs('properties', $imageName);
+            $image = $request->file('main_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('properties', $imageName, 'public');
+
+            $data['main_image'] = $imageName;
 
             $property = Property::create($data);
 
-            foreach ($galleries as $image) {
-                $imageName = time().'.'. $image->extension();
-                $image->storeAs('properties', $imageName);
+            foreach ($galleries as $galleryImage) {
 
-                $propertyImage = new PropertyGallery(['image' => $imageName]);
+                $galleryImageName = time() . '.' . $galleryImage->getClientOriginalExtension();
+                $galleryImage->storeAs('properties', $galleryImageName, 'public');
+
+                $propertyImage = new PropertyGallery(['image' => $galleryImageName]);
                 $property->gallery()->save($propertyImage);
             }
 

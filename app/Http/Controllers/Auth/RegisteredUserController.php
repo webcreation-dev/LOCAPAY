@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 
@@ -32,7 +34,6 @@ class RegisteredUserController extends Controller
     **/
     public function store(Request $request)
     {
-
         try {
 
             $validatedData = $request->validate([
@@ -52,8 +53,9 @@ class RegisteredUserController extends Controller
             $imageName = null;
 
             if ($request->hasFile('image')) {
-                $imageName = time().'.'.$request->image->extension();
-                $request->image->storeAs('images', $imageName);
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('images', $imageName, 'public');
             }
 
             $user = User::create([
@@ -93,4 +95,26 @@ class RegisteredUserController extends Controller
         ], $status);
         return $response;
     }
+
+    // public function uploadImage(Request $request)
+    // {
+    //     $image = $request->file('image');
+    //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+    //     $image->storeAs('images', $imageName, 'public');
+
+    //     return self::apiResponse(true, "Image uploadée avec succès", $imageName);
+    // }
+
+    // public function getImage($imageName)
+    // {
+    //     $path = public_path('storage/images/' . $imageName);
+
+    //     if (!file_exists($path)) {
+    //         return self::apiResponse(false, "Image not found", null);
+    //     }
+
+    //     $imageUrl = url('storage/images/' . $imageName);
+    //     return self::apiResponse(true, "Lien de l'image", $imageUrl);
+    // }
+
 }
