@@ -17,11 +17,6 @@ class RegisteredUserController extends Controller
     /**
          * ENREGISTRER UN NOUVEL UTILISATEUR
          *
-         * Enregistre un nouvel utilisateur en utilisant les informations fournies.
-         *
-         * @param \Illuminate\Http\Request $request
-         * @return \Illuminate\Http\JsonResponse
-         *
          * @bodyParam lastname string required Nom de famille de l'utilisateur.
          * @bodyParam firstname string required Prénom de l'utilisateur.
          * @bodyParam password string required Mot de passe de l'utilisateur.
@@ -34,7 +29,7 @@ class RegisteredUserController extends Controller
          * @bodyParam role_id numeric required ID du rôle de l'utilisateur.
          * @bodyParam activity_id numeric ID de l'activité de l'utilisateur (facultatif).
          * @bodyParam city_id numeric ID de la ville de l'utilisateur (facultatif).
-    */
+    **/
     public function store(Request $request)
     {
 
@@ -47,7 +42,7 @@ class RegisteredUserController extends Controller
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'phone' => ['required', 'string', 'max:8'],
                     'npi' => ['required', 'numeric'],
-                    'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                    'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:3048'],
                     'sexe' => ['required', 'numeric'],
                     'role_id' => ['required', 'numeric'],
                     'activity_id' => ['numeric'],
