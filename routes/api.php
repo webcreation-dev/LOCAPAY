@@ -34,12 +34,13 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('notifications', NotificationController::class);
     Route::resource('contracts', ContractController::class);
+    Route::resource('properties', PropertyController::class);
+
     // Route::resource('transactions', TransactionController::class);
     // Route::resource('schedules', ScheduleController::class);
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
-Route::resource('properties', PropertyController::class);
 
 // CONFIGURATION
 Route::resource('cities', CityController::class);
