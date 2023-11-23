@@ -40,8 +40,8 @@ class RegisteredUserController extends Controller
                     'firstname' => ['required', 'string', 'max:255'],
                     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'phone' => ['required', 'string', 'max:8'],
-                    'npi' => ['required', 'numeric'],
+                    'phone' => ['required', 'string', 'max:8', 'unique:users'],
+                    'npi' => ['required', 'numeric', 'unique:users'],
                     'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:3048'],
                     'sexe' => ['required', 'numeric'],
                     'role_id' => ['required', 'numeric'],
@@ -79,7 +79,8 @@ class RegisteredUserController extends Controller
 
             return self::apiResponse(true, "Inscription réussie", $userResponse);
         } catch (ValidationException $e) {
-            return self::apiResponse(false, "Échec de l'inscription");
+            $errors = $e->errors();
+            return self::apiResponse(false, "Échec de l'inscription", $errors);
         }
     }
 
