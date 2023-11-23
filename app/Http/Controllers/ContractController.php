@@ -28,21 +28,30 @@ class ContractController extends Controller
      * @bodyParam type enum required Type de contrat (Service ou Location).
      * @bodyParam document file required Document du contrat (formats autorisés : pdf, doc, docx ; taille maximale : 5 Mo).
      * @bodyParam observations string required Observations
-     * @bodyParam status enum required Statut du contrat (Pending, Active, Terminated).
 
      */
     public function store(Request $request)
     {
         try {
-            $data = $request->all();
+
+            $data = $request->validate([
+                'property_id' => ['required', 'numeric'],
+                'beneficiary_id' => ['required', 'numeric'],
+                'landlord_id' => ['required', 'numeric'],
+                'amount' => ['required', 'numeric'],
+                'document' => ['required', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
+                'start_date' => ['required', 'date'],
+                'type' => ['required', 'string'],
+                'observations' => ['required', 'string'],
+            ]);
+
             $document = time() . '.' . $request->file('document')->extension();
             $request->file('document')->storeAs('contracts', $document);
-
             $contract = Contract::create($data);
-
             return self::apiResponse(true, "Contrat ajouté avec succès", $contract);
-        }catch( ValidationException ) {
-            return self::apiResponse(false, "Échec de l'ajout du contrat");
+        }catch( ValidationException $e) {
+            $errors = $e->errors();
+            return self::apiResponse(false, "Échec de l'ajout du contrat", $errors);
         }
     }
 

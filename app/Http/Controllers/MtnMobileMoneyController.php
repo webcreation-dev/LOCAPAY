@@ -54,7 +54,7 @@ class MtnMobileMoneyController extends Controller
     {
         $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
         $response = $this->collection->getTransactionStatus($transactionId);
-        return self::apiResponse(true, 'Transaction effectué', $response );
+        return self::apiResponse(true, 'Transaction effectué', $response);
     }
 
     /**

@@ -36,8 +36,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('contracts', ContractController::class);
     Route::resource('properties', PropertyController::class);
 
-    // Route::resource('transactions', TransactionController::class);
-    // Route::resource('schedules', ScheduleController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::resource('schedules', ScheduleController::class);
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
@@ -48,9 +48,5 @@ Route::resource('activities', ActivityController::class);
 Route::resource('main_features', MainFeatureController::class);
 Route::resource('secondary_feature', SecondaryFeatureController::class);
 
-// Route::get('/initiate-payment/{amount}/{payerMobileNumber}/{reason}', [MtnMobileMoneyController::class, 'initiatePayment']);
-
 Route::get('/initiate-transaction/{amount}/{payerMobileNumber}/{reason}', [MtnMobileMoneyController::class, 'initiateTransaction']);
-
-// Route::get('/get-payment-status/{referenceId}', [MtnMobileMoneyController::class, 'getPaymentStatus']);
 
