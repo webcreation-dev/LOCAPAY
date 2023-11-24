@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'phone' => ['required', 'string', 'max:8', 'unique:users'],
                     'npi' => ['required', 'numeric', 'unique:users'],
-                    'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                    'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
                     'sexe' => ['required', 'numeric'],
                     'role_id' => ['required', 'numeric'],
                     'activity_id' => ['numeric'],

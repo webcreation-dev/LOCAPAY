@@ -63,7 +63,7 @@ class PropertyController extends Controller
                 'monthly_rent' => ['required', 'numeric'],
                 'owner_phone' => ['required', 'numeric'],
                 'description' => ['required', 'string'],
-                'main_image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                'main_image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
                 'status' => ['numeric'],
                 'rating' => ['numeric'],
                 'general_rating' => ['numeric'],
