@@ -46,8 +46,9 @@ class ContractController extends Controller
             ]);
 
             $document = $request->file('document');
-            $imageName = time() . '.' . $document->getClientOriginalExtension();
-            $document->storeAs('contracts', $imageName, 'public');
+            // $imageName = time() . '.' . $document->getClientOriginalExtension();
+            $documentName = $document->getClientOriginalName();
+            $document->storeAs('contracts', $documentName, 'public');
 
             $contract = Contract::create($data);
             return self::apiResponse(true, "Contrat ajouté avec succès", $contract);

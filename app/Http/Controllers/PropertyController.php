@@ -76,7 +76,8 @@ class PropertyController extends Controller
             $secondary_features = $request['secondary_features'];
 
             $image = $request->main_image;
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            // $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageName = $image->getClientOriginalName();
             $image->storeAs('properties', $imageName, 'public');
 
             $data['main_image'] = $imageName;
@@ -85,8 +86,10 @@ class PropertyController extends Controller
 
             foreach ($galleries as $galleryImage) {
 
-                $galleryImageName = time() . '.' . $galleryImage->getClientOriginalExtension();
+                $galleryImageName = $galleryImage->getClientOriginalName();
+                // $galleryImageName = time() . '.' . $galleryImage->getClientOriginalExtension();
                 $galleryImage->storeAs('properties', $galleryImageName, 'public');
+
 
                 $propertyImage = new PropertyGallery(['image' => $galleryImageName]);
                 $property->gallery()->save($propertyImage);

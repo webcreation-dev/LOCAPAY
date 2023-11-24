@@ -54,7 +54,8 @@ class RegisteredUserController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                // $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imageName = $image->getClientOriginalName();
                 $image->storeAs('images', $imageName, 'public');
             }
 
