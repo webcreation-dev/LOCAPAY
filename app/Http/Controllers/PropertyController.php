@@ -55,7 +55,6 @@ class PropertyController extends Controller
     {
         try {
 
-
             $data = $request->validate([
                 'property_last_name' => ['required', 'string', 'max:255'],
                 'property_first_name' => ['required', 'string', 'max:255'],
@@ -76,7 +75,7 @@ class PropertyController extends Controller
             $main_features = $request['main_features'];
             $secondary_features = $request['secondary_features'];
 
-            $image = $request->file('main_image');
+            $image = $request->main_image;
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('properties', $imageName, 'public');
 
