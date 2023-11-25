@@ -1,5 +1,5 @@
 <p align="center"><a href="https://laravel.com" target="_blank">
-<img src="{{asset('logo.png')}}" width="400" alt="Laravel Logo"></a></p>
+<img src="/public/locapay/logo.png" width="400" alt="Laravel Logo"></a></p>
 
 
 
@@ -32,16 +32,7 @@ rapports locatifs trop souvent sources de frictions.
 
 <!-- Laravel is accessible, powerful, and provides tools required for large, robust applications. -->
 
-## Visuels de Présentation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-<img src="{{asset('proprios.jpg')}}" alt="Propriétaires">
-<br/>
-<img src="{{asset('locataires.jpg')}}" alt="Propriétaires">
-<br/>
-<img src="{{asset('artisans.jpg')}}" alt="Propriétaires">
-<br/>
 
 <!-- You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
@@ -56,6 +47,17 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 - **[Vidéo de présentation](https://drive.google.com/file/d/1O6OCEaDCW0gl-PMP4qe55KrziK1ddYRB/view?usp=drive_link)**
 - **[Maquette Web](https://www.figma.com/file/3gHRzdbkQ7MMayEaxPPyiP/LocaPay?type=design&node-id=0%3A1&mode=design&t=EtT0pez9xu4CswOe-1)**
 - **[Présentation web](https://webcreation-dev.github.io/LOCAPAY_APP)**
+
+## Visuels de Présentation
+
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+
+<img src="/public/locapay/proprios.jpg" alt="Propriétaires">
+<br/>
+<img src="/public/locapay/locataires.jpg" alt="Propriétaires">
+<br/>
+<img src="/public/locapay/artisans.jpg" alt="Propriétaires">
+<br/>
 
 <!-- ## Contributing
 
