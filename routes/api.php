@@ -33,11 +33,15 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
-    Route::resource('notifications', NotificationController::class);
-    Route::resource('contracts', ContractController::class);
+
     Route::resource('properties', PropertyController::class);
 
+    Route::resource('contracts', ContractController::class);
+
+    Route::resource('notifications', NotificationController::class);
+
     Route::resource('transactions', TransactionController::class);
+
     Route::resource('schedules', ScheduleController::class);
 
     Route::get('/initiate-transaction/{amount}/{reason}/{type}', [MtnMobileMoneyController::class, 'initiateTransaction']);
@@ -51,9 +55,5 @@ Route::resource('cities', CityController::class);
 Route::resource('activities', ActivityController::class);
 Route::resource('main_features', MainFeatureController::class);
 Route::resource('secondary_feature', SecondaryFeatureController::class);
-
-// Route::get('/get_image/{imageName}', [RegisteredUserController::class, 'getImage']);
-// Route::post('/upload_image', [RegisteredUserController::class, 'uploadImage']);
-
 
 

@@ -54,7 +54,6 @@ class RegisteredUserController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                // $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imageName = $image->getClientOriginalName();
                 $image->storeAs('images', $imageName, 'public');
             }
@@ -62,7 +61,7 @@ class RegisteredUserController extends Controller
             $user = User::create([
                 'lastname' => $validatedData['lastname'],
                 'firstname' => $validatedData['firstname'],
-                'password' => Hash::make($validatedData['password']), // Utilisez Hash::make pour hasher le mot de passe
+                'password' => Hash::make($validatedData['password']), 
                 'email' => $validatedData['email'],
                 'phone' => $validatedData['phone'],
                 'npi' => $validatedData['npi'],
@@ -96,26 +95,5 @@ class RegisteredUserController extends Controller
         ], $status);
         return $response;
     }
-
-    // public function uploadImage(Request $request)
-    // {
-    //     $image = $request->file('image');
-    //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //     $image->storeAs('images', $imageName, 'public');
-
-    //     return self::apiResponse(true, "Image uploadée avec succès", $imageName);
-    // }
-
-    // public function getImage($imageName)
-    // {
-    //     $path = public_path('storage/images/' . $imageName);
-
-    //     if (!file_exists($path)) {
-    //         return self::apiResponse(false, "Image not found", null);
-    //     }
-
-    //     $imageUrl = url('storage/images/' . $imageName);
-    //     return self::apiResponse(true, "Lien de l'image", $imageUrl);
-    // }
 
 }
