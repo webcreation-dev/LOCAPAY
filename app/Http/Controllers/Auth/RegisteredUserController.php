@@ -54,14 +54,14 @@ class RegisteredUserController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = $image->getClientOriginalName();
+                $imageName = str_replace(' ', '-', $image->getClientOriginalName());
                 $image->storeAs('images', $imageName, 'public');
             }
 
             $user = User::create([
                 'lastname' => $validatedData['lastname'],
                 'firstname' => $validatedData['firstname'],
-                'password' => Hash::make($validatedData['password']), 
+                'password' => Hash::make($validatedData['password']),
                 'email' => $validatedData['email'],
                 'phone' => $validatedData['phone'],
                 'npi' => $validatedData['npi'],

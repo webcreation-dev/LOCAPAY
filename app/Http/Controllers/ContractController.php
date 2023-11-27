@@ -28,7 +28,7 @@ class ContractController extends Controller
      * @bodyParam type enum required Type de contrat (Service ou Location).
      * @bodyParam document file required Document du contrat (formats autorisés : pdf, doc, docx ; taille maximale : 5 Mo).
      * @bodyParam observations string required Observations
-     * 
+     *
      */
     public function store(Request $request)
     {
@@ -47,7 +47,7 @@ class ContractController extends Controller
 
             $document = $request->file('document');
             // $imageName = time() . '.' . $document->getClientOriginalExtension();
-            $documentName = $document->getClientOriginalName();
+            $documentName = str_replace(' ', '-', $document->getClientOriginalName());
             $document->storeAs('contracts', $documentName, 'public');
 
             $contract = Contract::create($data);

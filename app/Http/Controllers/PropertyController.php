@@ -53,7 +53,7 @@ class PropertyController extends Controller
     */
     public function store(Request $request)
     {
-        try {
+        // try {
 
             $data = $request->validate([
                 'property_last_name' => ['required', 'string', 'max:255'],
@@ -77,7 +77,7 @@ class PropertyController extends Controller
 
             $image = $request->main_image;
             // $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imageName = $image->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $image->getClientOriginalName());
             $image->storeAs('properties', $imageName, 'public');
 
             $data['main_image'] = $imageName;
@@ -86,7 +86,7 @@ class PropertyController extends Controller
 
             foreach ($galleries as $galleryImage) {
 
-                $galleryImageName = $galleryImage->getClientOriginalName();
+                $galleryImageName = str_replace(' ', '-', $galleryImage->getClientOriginalName());
                 // $galleryImageName = time() . '.' . $galleryImage->getClientOriginalExtension();
                 $galleryImage->storeAs('properties', $galleryImageName, 'public');
 
@@ -99,11 +99,11 @@ class PropertyController extends Controller
             $property->secondaryFeatures()->attach($secondary_features);
 
             return self::apiResponse(true, "Location ajouté avec succès", $property);
-        }catch( ValidationException $e) {
-            $errors = $e->errors();
+        // }catch( ValidationException $e) {
+        //     $errors = $e->errors();
 
-            return self::apiResponse(false, "Échec de l'ajout de la propriété", $errors);
-        }
+        //     return self::apiResponse(false, "Échec de l'ajout de la propriété", $errors);
+        // }
     }
 
     /**
