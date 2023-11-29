@@ -86,6 +86,8 @@ class TransactionController extends Controller
     {
         try {
             $data = $request->validate([
+                'user_id' => ['required', 'numeric'],
+                'receiver_id' => ['required', 'numeric'],
                 'phone' => ['required', 'numeric'],
                 'amount' => ['required', 'numeric'],
                 'type' => ['required'],

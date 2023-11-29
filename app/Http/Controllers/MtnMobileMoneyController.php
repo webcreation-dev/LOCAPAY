@@ -80,6 +80,7 @@ class MtnMobileMoneyController extends Controller
     {
         try {
             $senderPhone = Auth::user()->phone;
+            $receiver = User::byPhone($phone)->first();
 
             if($senderPhone != $phone) {
                 $isUnique = User::where('phone', $phone)->doesntExist();
@@ -91,7 +92,7 @@ class MtnMobileMoneyController extends Controller
                         }else {
                             $transactionId = $this->collection->requestToPay($reason, $phone, $amount);
                             $response = $this->collection->getTransactionStatus($transactionId);
-                            return redirect()->route('transfert-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'amount' => $amount, 'phone' => $phone, 'type' => $type]);
+                            return redirect()->route('transfert-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'user_id' => Auth::user()->id, 'receiver_id' => $receiver->id, 'amount' => $amount, 'phone' => $phone, 'type' => $type]);
                         }
 
                 }else {
