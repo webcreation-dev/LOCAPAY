@@ -6,6 +6,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -92,8 +93,14 @@ class TransactionController extends Controller
                 'reason' => ['required', 'string'],
             ]);
 
-            $user = User::byPhone($request->phone);
-            $user->balance = $user->balance + $request->amount;
+            $sender  = User::find(Auth::user()->id);
+            $sender->balance = $sender->balance - $request->amount;
+            $sender->save();
+
+            $receiver = User::byPhone($request->phone);
+            $receiver->balance = $receiver->balance + $request->amount;
+            $receiver->save();
+
 
             $transaction = Transaction::create($data);
             $transaction->somme = $request->amount;

@@ -43,24 +43,30 @@ class MtnMobileMoneyController extends Controller
         try {
             $isUnique = User::where('phone', $payerMobileNumber)->doesntExist();
 
-            if (!$isUnique) {
-                if($type == "Recharge") {
-                    $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
-                    $response = $this->collection->getTransactionStatus($transactionId);
-                    return redirect()->route('action-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'amount' => $amount, 'user_id' => Auth::user()->id, 'type' => $type]);
-                }else {
-                    $solde = User::where('phone', $payerMobileNumber)->first()->balance;
-                    if($solde < $amount) {
-                        return self::apiResponse(false, "Le solde est insuffisant");
-                    }else {
+            $senderPhone = Auth::user()->phone;
+
+            if($senderPhone != $payerMobileNumber) {
+                if ((!$isUnique)) {
+                    if($type == "Recharge") {
                         $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
                         $response = $this->collection->getTransactionStatus($transactionId);
                         return redirect()->route('action-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'amount' => $amount, 'user_id' => Auth::user()->id, 'type' => $type]);
+                    }else {
+                        $solde = User::where('phone', $payerMobileNumber)->first()->balance;
+                        if($solde < $amount) {
+                            return self::apiResponse(false, "Le solde est insuffisant");
+                        }else {
+                            $transactionId = $this->collection->requestToPay($reason, $payerMobileNumber, $amount);
+                            $response = $this->collection->getTransactionStatus($transactionId);
+                            return redirect()->route('action-transaction', ['response' => $response, 'transaction_id' => $transactionId, "reason" => $reason, 'type' => $type, 'amount' => $amount, 'user_id' => Auth::user()->id, 'type' => $type]);
+                        }
                     }
-                }
 
+                }else {
+                    return self::apiResponse(false, "Le numéro n'a pas été trouvé");
+                }
             }else {
-                return self::apiResponse(false, "Le numéro n'a pas été trouvé");
+                return self::apiResponse(false, "Vous ne pouvez pas vous envoyer de l'argent");
             }
         } catch (ValidationException) {
             return self::apiResponse(false, "Échec de la transaction");
