@@ -81,6 +81,30 @@ class TransactionController extends Controller
         }
     }
 
+    public function transfertTransaction(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'phone' => ['required', 'numeric'],
+                'amount' => ['required', 'numeric'],
+                'type' => ['required'],
+                'transaction_id' => ['required', 'string'],
+                'reason' => ['required', 'string'],
+            ]);
+
+            $user = User::byPhone($request->phone);
+            $user->balance = $user->balance + $request->amount;
+
+            $transaction = Transaction::create($data);
+            $transaction->somme = $request->amount;
+            return self::apiResponse(true, "Transfert validé avec succès", $transaction);
+
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            return self::apiResponse(false, "Échec du transfert", $errors);
+        }
+    }
+
 
     /**
      * PAIEMENT D'UN CONTRAT
