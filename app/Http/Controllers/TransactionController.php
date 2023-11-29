@@ -97,7 +97,7 @@ class TransactionController extends Controller
             $sender->balance = $sender->balance - $request->amount;
             $sender->save();
 
-            $receiver = User::byPhone($request->phone);
+            $receiver = User::byPhone($request->phone)->first();
             $receiver->balance = $receiver->balance + $request->amount;
             $receiver->save();
 

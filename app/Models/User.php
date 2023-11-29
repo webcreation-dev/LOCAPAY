@@ -51,7 +51,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function scopePhone($query, $phone)
+    public function scopeByPhone($query, $phone)
     {
         return $query->where('phone', $phone);
     }
