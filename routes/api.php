@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/initiate-transaction/{amount}/{reason}/{type}', [MtnMobileMoneyController::class, 'initiateTransaction']);
     Route::get('/action-transaction', [TransactionController::class, 'actionTransaction'])->name('action-transaction');
 
-    Route::get('/payment-transaction/{amount}/{reason}/{type}', [MtnMobileMoneyController::class, 'paymentTransaction']);
+    Route::get('/payment-transaction/{amount}/{reason}/{type}/{phone}', [MtnMobileMoneyController::class, 'paymentTransaction']);
     Route::get('/transfert-transaction', [TransactionController::class, 'transfertTransaction'])->name('transfert-transaction');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
