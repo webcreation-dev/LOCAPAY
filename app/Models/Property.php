@@ -45,4 +45,9 @@ class Property extends Model
     public function secondaryFeatures() {
         return $this->belongsToMany(SecondaryFeature::class, 'merge_property_secondary_features', 'property_id', 'secondary_feature_id');
     }
+
+    public function scopeByUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
 }

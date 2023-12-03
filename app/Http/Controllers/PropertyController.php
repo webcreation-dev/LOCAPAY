@@ -30,6 +30,29 @@ class PropertyController extends Controller
         return self::apiResponse(true, "Liste de tous les propriétés", $properties);
     }
 
+      /**
+     * LOCATIONS DU PROPRIÉTAIRE
+     *
+     * @bodyParam user_id numeric required ID de l'utilisateur (propriétaire).
+     */
+    public function getPropertiesByOwner(Request $request)
+    {
+        $properties = Property::byUser($request->user_id)->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
+
+        $properties = $properties->map(function ($property) {
+            $property->main_image_url = url('storage/properties/' . $property->main_image);
+
+
+            $property->gallery->each(function ($image) {
+                $image->image_url = url('storage/properties/' . $image->image);
+            });
+
+            return $property;
+        });
+
+        return self::apiResponse(true, "Liste des locations du propriétaire", $properties);
+    }
+
     /**
         * AJOUTER UNE PROPRIÉTÉ
         *

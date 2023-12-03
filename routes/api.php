@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     Route::resource('schedules', ScheduleController::class);
 
+    Route::get('/get_properties_by_owner', [PropertyController::class, 'getPropertiesByOwner']);
+
     Route::get('/initiate-transaction/{amount}/{reason}/{type}', [MtnMobileMoneyController::class, 'initiateTransaction']);
     Route::get('/action-transaction', [TransactionController::class, 'actionTransaction'])->name('action-transaction');
 
