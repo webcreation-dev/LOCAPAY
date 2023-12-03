@@ -37,7 +37,7 @@ class PropertyController extends Controller
      */
     public function getPropertiesByOwner(Request $request)
     {
-        $properties = Property::byUser($request->id)->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
+        $properties = Property::where('user_id', $request->id)->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
 
         $properties = $properties->map(function ($property) {
             $property->main_image_url = url('storage/properties/' . $property->main_image);
