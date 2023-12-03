@@ -33,11 +33,11 @@ class PropertyController extends Controller
       /**
      * LOCATIONS DU PROPRIÉTAIRE
      *
-     * @bodyParam user_id numeric required ID de l'utilisateur (propriétaire).
+     * @bodyParam id numeric required ID de l'utilisateur (propriétaire).
      */
     public function getPropertiesByOwner(Request $request)
     {
-        $properties = Property::byUser($request->user_id)->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
+        $properties = Property::byUser($request->id)->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
 
         $properties = $properties->map(function ($property) {
             $property->main_image_url = url('storage/properties/' . $property->main_image);
