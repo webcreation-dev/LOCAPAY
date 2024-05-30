@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/transfert-transaction', [TransactionController::class, 'transfertTransaction'])->name('transfert-transaction');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
+    
 });
 
 // CONFIGURATION
