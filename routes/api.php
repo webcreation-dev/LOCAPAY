@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CityController;
 use Illuminate\Http\Request;
@@ -14,6 +13,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\MtnMobileMoneyController;
 use App\Http\Controllers\SecondaryFeatureController;
+use App\Http\Controllers\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('transactions', TransactionController::class);
 
     Route::resource('schedules', ScheduleController::class);
+
+    Route::resource('visits', VisitController::class);
 
     Route::get('/get_properties_by_owner', [PropertyController::class, 'getPropertiesByOwner']);
 
