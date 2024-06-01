@@ -35,7 +35,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
 
-    Route::resource('properties', PropertyController::class);
 
     Route::resource('contracts', ContractController::class);
 
@@ -56,7 +55,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/transfert-transaction', [TransactionController::class, 'transfertTransaction'])->name('transfert-transaction');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-    
+
 });
 
 // CONFIGURATION
@@ -64,5 +63,8 @@ Route::resource('cities', CityController::class);
 Route::resource('activities', ActivityController::class);
 Route::resource('main_features', MainFeatureController::class);
 Route::resource('secondary_feature', SecondaryFeatureController::class);
+
+Route::resource('properties', PropertyController::class);
+
 
 
