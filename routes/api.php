@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
+    Route::resource('properties', PropertyController::class);
 });
 
 // CONFIGURATION
@@ -64,7 +65,6 @@ Route::resource('activities', ActivityController::class);
 Route::resource('main_features', MainFeatureController::class);
 Route::resource('secondary_feature', SecondaryFeatureController::class);
 
-Route::resource('properties', PropertyController::class);
 
 
 

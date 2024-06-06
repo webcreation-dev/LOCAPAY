@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisteredController::class, 'store']);
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 
 // Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
 //                 ->middleware('guest')
