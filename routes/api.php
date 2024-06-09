@@ -59,6 +59,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::resource('properties', PropertyController::class);
 });
 
+Route::resource('locations', PropertyController::class);
+
+
 // CONFIGURATION
 Route::resource('cities', CityController::class);
 Route::resource('activities', ActivityController::class);
