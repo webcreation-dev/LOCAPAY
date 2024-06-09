@@ -39,16 +39,16 @@ class PropertyController extends Controller
     {
         $properties = Property::byUser($request->user_id)->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
 
-        $properties = $properties->map(function ($property) {
-            $property->main_image_url = url('storage/properties/' . $property->main_image);
+        // $properties = $properties->map(function ($property) {
+        //     $property->main_image_url = url('storage/properties/' . $property->main_image);
 
 
-            $property->gallery->each(function ($image) {
-                $image->image_url = url('storage/properties/' . $image->image);
-            });
+        //     $property->gallery->each(function ($image) {
+        //         $image->image_url = url('storage/properties/' . $image->image);
+        //     });
 
-            return $property;
-        });
+        //     return $property;
+        // });
 
         return self::apiResponse(true, "Liste des locations du propriétaire", $properties);
     }
