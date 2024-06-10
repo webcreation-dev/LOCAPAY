@@ -64,10 +64,10 @@ Route::get('properties/{property}', [PropertyController::class, 'show'])->name('
 
 
 // CONFIGURATION
-Route::resource('cities', CityController::class);
-Route::resource('activities', ActivityController::class);
-Route::resource('main_features', MainFeatureController::class);
-Route::resource('secondary_feature', SecondaryFeatureController::class);
+// Route::resource('cities', CityController::class);
+// Route::resource('activities', ActivityController::class);
+// Route::resource('main_features', MainFeatureController::class);
+// Route::resource('secondary_feature', SecondaryFeatureController::class);
 
 
 

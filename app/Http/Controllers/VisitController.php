@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 class VisitController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * LISTE DES VISITES
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class VisitController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * ENREGISTRER UNE VISITE
      */
     public function store(Request $request)
     {
@@ -41,8 +41,7 @@ class VisitController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
+    /**RECUPERER UNE VISITE
      */
     public function show(Visit $visit)
     {
@@ -50,7 +49,7 @@ class VisitController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * METTRE A JOUR UNE VISITE
      */
     public function update(Request $request, Visit $visit)
     {
@@ -58,7 +57,7 @@ class VisitController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * SUPPRIMER UNE VISITE
      */
     public function destroy(Visit $visit)
     {
