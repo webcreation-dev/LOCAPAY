@@ -57,10 +57,12 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::put('properties/{property}', [PropertyController::class, 'update'])->name('properties.update');
     Route::delete('properties/{property}', [PropertyController::class, 'destroy'])->name('properties.destroy');
 
+
+});
+
 Route::get('properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 
-});
 
 
 // CONFIGURATION
