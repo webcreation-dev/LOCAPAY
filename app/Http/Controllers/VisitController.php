@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,25 +15,58 @@ class VisitController extends Controller
      */
     public function index()
     {
-        $visits = Visit::where('user_id', Auth::user()->id )->get();
+        $visits = Visit::where('user_id', Auth::user()->id)->get()->map(function ($visit) {
+
+            $visit->manager = $visit->manager;
+            $visit->properties = $visit->visitProperties->map(function ($visitProperty) {
+
+                $property = $visitProperty->property;
+
+                $property->main_image_url = url('storage/properties/' . $property->main_image);
+                $property->gallery->each(function ($image) {
+                    $image->image_url = url('storage/properties/' . $image->image);
+                });
+
+                return $property;
+            });
+            return $visit;
+        });
+
         return self::apiResponse(true, "Liste des visites de l'utilisateur", $visits);
     }
 
 
     /**
      * ENREGISTRER UNE VISITE
+     *
+     * @bodyParam property_id numeric required ID de la propriété (propriétaire).
      */
     public function store(Request $request)
     {
         try {
+
             $data = $request->validate([
                 'property_id' => ['required', 'numeric'],
-                'visit_date' => ['required', 'date'],
-                'price' => ['required', 'numeric'],
             ]);
 
-            $data['user_id'] = Auth::user()->id;
-            $visit = Visit::create($data);
+            $property = Property::find($data['property_id']);
+            $visit = Visit::where('manager_id',$property->user_id)->where('user_id', Auth::user()->id)->first();
+
+            if ($visit) {
+
+                $visit->visitProperties()->create([
+                    'property_id' => $data['property_id']
+                ]);
+            }else {
+
+                $data['user_id'] = Auth::user()->id;
+                $data['manager_id'] = $property->user_id;
+                $visit = Visit::create($data);
+
+                $visit->visitProperties()->create([
+                    'property_id' => $data['property_id']
+                ]);
+            }
 
             return self::apiResponse(true, "Visite ajoutée avec succès", $visit);
         } catch (ValidationException $e) {
@@ -41,10 +75,27 @@ class VisitController extends Controller
         }
     }
 
-    /**RECUPERER UNE VISITE
+    /**
+     * RECUPERER UNE VISITE
+     *
+     * @urlParam visit Paramètre d'URL obligatoire. ID de la visite à afficher.
      */
     public function show(Visit $visit)
     {
+
+        $visit->manager = $visit->manager;
+        $visit->properties = $visit->visitProperties->map(function ($visitProperty) {
+
+            $property = $visitProperty->property;
+
+            $property->main_image_url = url('storage/properties/' . $property->main_image);
+            $property->gallery->each(function ($image) {
+                $image->image_url = url('storage/properties/' . $image->image);
+            });
+
+            return $property;
+        });
+
         return self::apiResponse(true, "Détails de la visite", $visit);
     }
 

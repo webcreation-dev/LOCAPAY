@@ -14,16 +14,15 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('property_id');
-            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
 
-            $table->enum('status', Visit::STATUS)->default('in_progress');
-
-            $table->date('visit_date');
-            $table->string('price');
+            $table->enum('status', Visit::STATUS)->default(Visit::STATUS[0]);
+            $table->date('visit_date')->nullable();
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('manager_id');
+            $table->foreign('manager_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

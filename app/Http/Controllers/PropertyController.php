@@ -6,6 +6,7 @@ use App\Models\Property;
 use App\Models\PropertyGallery;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
 {
@@ -90,9 +91,10 @@ class PropertyController extends Controller
                 'rating' => ['numeric'],
                 'general_rating' => ['numeric'],
                 'team_rating' => ['numeric'],
-                'user_id' => ['required', 'numeric'],
                 'city_id' => ['required', 'numeric'],
             ]);
+
+            $data['user_id'] = Auth::user()->id;
 
             $galleries = $request['galleries'];
             $main_features = $request['main_features'];

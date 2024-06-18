@@ -10,10 +10,9 @@ class Visit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'property_id',
         'status',
         'visit_date',
-        'price',
+        'manager_id',
         'user_id'
     ];
 
@@ -26,5 +25,15 @@ class Visit extends Model
     public function propertie()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public function visitProperties()
+    {
+        return $this->hasMany(VisitProperty::class, 'visit_id');
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
     }
 }
