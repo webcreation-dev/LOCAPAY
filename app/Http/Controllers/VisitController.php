@@ -29,6 +29,7 @@ class VisitController extends Controller
 
                 return $property;
             });
+            $visit->makeHidden('visitProperties');
             return $visit;
         });
 
