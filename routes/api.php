@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
     Route::resource('visits', VisitController::class);
+    Route::delete('delete_property_visits/{visit}/{property}', [VisitController::class, 'deleteProperty'])->name('visits.deleteProperty');
 
     Route::get('/get_properties_by_owner', [PropertyController::class, 'getPropertiesByOwner']);
 

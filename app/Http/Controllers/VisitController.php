@@ -29,7 +29,7 @@ class VisitController extends Controller
 
                 return $property;
             });
-            $visit->makeHidden('visitProperties');
+            $visit->makeHidden('visitProperties', 'user_id', 'manager_id', 'created_at', 'updated_at');
             return $visit;
         });
 
@@ -49,6 +49,14 @@ class VisitController extends Controller
             $data = $request->validate([
                 'property_id' => ['required', 'numeric'],
             ]);
+
+            $visitProperty = Visit::where('user_id', Auth::user()->id)->whereHas('visitProperties', function ($query) use ($data) {
+                $query->where('property_id', $data['property_id']);
+            })->whereIn('status', ['waiting', 'in_progress'])->first();
+
+            if ($visitProperty) {
+                return self::apiResponse(false, "Vous avez déjà ajouté cette propriété à une visite en attente ou en cours");
+            }
 
             $property = Property::find($data['property_id']);
             $visit = Visit::where('manager_id',$property->user_id)->where('user_id', Auth::user()->id)->first();
@@ -102,18 +110,40 @@ class VisitController extends Controller
 
     /**
      * METTRE A JOUR UNE VISITE
+     *
+     * @urlParam visit Paramètre d'URL obligatoire. ID de la visite à afficher.
+     * @bodyParam status string required Statut de la visite
+     * @bodyParam visit_date date required Date de la visite
      */
     public function update(Request $request, Visit $visit)
     {
-        //
+        $visit->update($request->all());
+        return self::apiResponse(true, "Visite mise à jour avec succès", $visit);
     }
 
     /**
      * SUPPRIMER UNE VISITE
+     *
+     * @urlParam visit Paramètre d'URL obligatoire. ID de la visite à afficher.
      */
     public function destroy(Visit $visit)
     {
-        //
+        $visit->delete();
+        return self::apiResponse(true, "Visite supprimée avec succès");
+    }
+
+
+    /**
+     * SUPPRIMER UNE PROPRIETE D'UNE VISITE
+     *
+     * @urlParam visit Paramètre d'URL obligatoire. ID de la visite à afficher.
+     * @urlParam property Paramètre d'URL obligatoire. ID de la propriété à supprimer.
+     */
+    public function deleteProperty(Visit $visit, Property $property)
+    {
+        $visitProperty = $visit->visitProperties()->where('property_id', $property->id)->first();
+        $visitProperty->delete();
+        return self::apiResponse(true, "Propriété supprimée de la visite avec succès");
     }
 
     public static function apiResponse($success, $message, $data = [], $status = 200) //: array

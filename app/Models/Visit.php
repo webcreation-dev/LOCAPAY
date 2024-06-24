@@ -17,9 +17,9 @@ class Visit extends Model
     ];
 
     const STATUS = [
+        'waiting',
         'in_progress',
-        'visited',
-        'cancelled'
+        'finished'
     ];
 
     public function propertie()
