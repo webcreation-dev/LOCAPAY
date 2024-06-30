@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::put('properties/{property}', [PropertyController::class, 'update'])->name('properties.update');
     Route::delete('properties/{property}', [PropertyController::class, 'destroy'])->name('properties.destroy');
 
+    // route for search property
+    Route::get('search_properties', [PropertyController::class, 'searchProperty'])->name('properties.search');
+
 
 });
 

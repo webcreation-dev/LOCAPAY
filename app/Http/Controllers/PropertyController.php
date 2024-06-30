@@ -31,7 +31,7 @@ class PropertyController extends Controller
         return self::apiResponse(true, "Liste de tous les propriétés", $properties);
     }
 
-      /**
+    /**
      * LOCATIONS DU PROPRIÉTAIRE
      *
      * @bodyParam user_id numeric required ID de l'utilisateur (propriétaire).
@@ -52,6 +52,28 @@ class PropertyController extends Controller
         // });
 
         return self::apiResponse(true, "Liste des locations du propriétaire", $properties);
+    }
+
+    /**
+     * FILTRE DES PROPRIETES PAR MOTS CLES
+     *
+     * @bodyParam keywords string required Nom du propriétaire.
+     */
+    public function searchProperty($request)
+    {
+        // explode the keywords saparated by comma into an array
+        $keywords = explode(' ', $request->keywords);
+
+        $properties = Property::where(function ($query) use ($keywords) {
+            foreach ($keywords as $keyword) {
+                $query->orWhere('property_last_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('property_first_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('property_location', 'like', '%' . $keyword . '%')
+                    ->orWhere('description', 'like', '%' . $keyword . '%');
+            }
+        })->with(['gallery', 'mainFeatures', 'secondaryFeatures'])->get();
+
+        return $properties;
     }
 
     /**

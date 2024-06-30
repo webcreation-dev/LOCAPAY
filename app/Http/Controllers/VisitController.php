@@ -50,6 +50,8 @@ class VisitController extends Controller
                 'property_id' => ['required', 'numeric'],
             ]);
 
+
+
             $visitProperty = Visit::where('user_id', Auth::user()->id)->whereHas('visitProperties', function ($query) use ($data) {
                 $query->where('property_id', $data['property_id']);
             })->whereIn('status', ['waiting', 'in_progress'])->first();
@@ -70,6 +72,7 @@ class VisitController extends Controller
 
                 $data['user_id'] = Auth::user()->id;
                 $data['manager_id'] = $property->user_id;
+                $data['code'] = 'VISIT-' . time();
                 $visit = Visit::create($data);
 
                 $visit->visitProperties()->create([
@@ -142,6 +145,12 @@ class VisitController extends Controller
     public function deleteProperty(Visit $visit, Property $property)
     {
         $visitProperty = $visit->visitProperties()->where('property_id', $property->id)->first();
+
+        if($visit->visitProperties()->count() == 1){
+            $visit->delete();
+            return self::apiResponse(true, " Dernière propriété et visite supprimée avec succès");
+        }
+
         $visitProperty->delete();
         return self::apiResponse(true, "Propriété supprimée de la visite avec succès");
     }

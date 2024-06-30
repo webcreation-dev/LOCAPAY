@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('status', Visit::STATUS)->default(Visit::STATUS[0]);
             $table->date('visit_date')->nullable();
 
+            $table->string('code');
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

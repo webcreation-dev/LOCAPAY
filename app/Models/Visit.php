@@ -13,7 +13,8 @@ class Visit extends Model
         'status',
         'visit_date',
         'manager_id',
-        'user_id'
+        'user_id',
+        'code',
     ];
 
     const STATUS = [
