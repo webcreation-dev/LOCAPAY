@@ -114,6 +114,7 @@ class PropertyController extends Controller
                 'general_rating' => ['numeric'],
                 'team_rating' => ['numeric'],
                 'city_id' => ['required', 'numeric'],
+                'user_id' => ['required', 'numeric'],
             ]);
 
             // $data['user_id'] = Auth::user()->id;
