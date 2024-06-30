@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
 });
 
-Route::resource('properties', VisitController::class);
+Route::resource('properties', PropertyController::class);
 
 // Route::get('properties', [PropertyController::class, 'index'])->name('properties.index');
 // Route::get('properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
