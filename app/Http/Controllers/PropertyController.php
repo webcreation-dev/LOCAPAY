@@ -116,7 +116,7 @@ class PropertyController extends Controller
                 'city_id' => ['required', 'numeric'],
             ]);
 
-            $data['user_id'] = Auth::user()->id;
+            // $data['user_id'] = Auth::user()->id;
 
             $galleries = $request['galleries'];
             $main_features = $request['main_features'];
